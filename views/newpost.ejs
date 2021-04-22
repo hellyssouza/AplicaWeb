@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <title>Aplica Web</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/shared/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/shared/style.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/aplica.web.newpost.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <%- include('shared/header.ejs') %>
+    <div class="body">
+      <div class="container">
+        <%- include('shared/confirmacao.ejs') %>
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title body__titulo--unselectable">Nova Postagem</span>
+              <form action="postagem" name="formulario">
+
+                <div class="row">
+                  <div class="input-field col l6 m6 s12">
+                    <input name="titulo" type="text" class="validate">
+                    <label for="first_name">Titulo da postagem</label>
+                  </div>
+                  
+                  <div class="input-field col l6 m6 s12">
+                    <select class="tipo" name="tipo">
+                      <option value="1">Artigo</option>
+                      <option value="2">Tutorial</option>
+                      <option value="3">Curso</option>
+                    </select>
+                    <label for="tipo" class="body__titulo--unselectable">Tipo de postagem</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="file-field input-field col l6 m6 s12">
+                    <div class="btn">
+                      <input type="file" class="imagem" name="imagem" accept=".jpg,.jpeg,.png" multiple="multiple">
+                      <i class="material-icons">image</i>
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" placeholder="Imagem da logo">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <textarea name="editor" class="editor" rows="200" cols="80"></textarea>
+                </div>
+
+                <div class="row">
+                  <div class="postar">
+                    <div class="posta__botao">
+                      <button class="btn waves-effect waves-light salvar" name="salvar">
+                        Publicar <i class="material-icons right">send</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+    <%- include('shared/footer.ejs') %>
+      <script data-main="/static/javascripts/newpost-main" src="/static/javascripts/shared/require.js"></script>
+      <script src="/static/javascripts/ckeditor/ckeditor.js"></script>
+</body>
+
+</html>>

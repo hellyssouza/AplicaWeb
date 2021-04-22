@@ -1,0 +1,147 @@
+body {
+  background-color: #EFEFEF;
+}
+
+.header {
+  background-color: #7B2CBF;
+}
+
+.body {
+  background-color: #EFEFEF;
+}
+
+.footer {
+  background-color: #EFEFEF;
+}
+
+.footer_painel {
+  display: inline-table;
+  position: relative;
+  height: 32px;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer__direitos {
+  vertical-align: bottom;
+  display: table-cell;
+  text-align: center;
+  font-weight: bold;
+  color: #999999;
+}
+
+.header--unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.footer--unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media only screen and (min-width: 600px) {
+  .body {
+    min-height: 500px !important;
+  }
+
+  .header{
+    height: 90px;
+    width: 100%;
+  }
+
+  .header__painel {
+    display: inline-table;
+    position: absolute;
+    height: 92px;
+    width: 100%;
+  }
+
+  .header__menu {
+    display: none;
+  }
+
+  .header__logo {
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    vertical-align: middle;
+    display: table-cell;
+    text-align: left;
+    font-size: 46px;
+    color: #FFFFFF;
+  }
+  
+  .header__logo > p {
+    margin-left: 20px;
+    display: inline;
+  }
+
+  .header__links {
+    vertical-align: middle;
+    display: table-cell;
+    text-align: right;
+    font-size: 21px;
+  }
+
+  .header__link {
+    font-family: sans-serif;
+    margin-right: 15px;
+    color: #FFFFFF;
+  }
+  
+  .header__link:hover {
+    box-shadow: 0px 2px 0px 0px #ff6700;
+    padding-bottom: 7px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header {
+    height: 90px;
+    width: 100%;
+  }
+
+  .header__painel {
+    display: inline-table;
+    position: absolute;
+    height: 92px;
+    width: 100%;
+  }
+
+  .header__menu {
+    vertical-align: middle;
+    display: table-cell;
+    text-align: left;
+  }
+
+  .header__menu > a {
+    margin-left: 22px;
+    color: white;
+  }
+
+  .header__menu > a > span{
+    font-size: 50px !important;
+  }
+
+  .header__logo {
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    vertical-align: middle;
+    display: table-cell;
+    text-align: left;
+    font-size: 40px;
+    color: #FFFFFF;
+  }
+  
+  .header__logo > p {
+    display: inline;
+  }
+
+  .header__links {
+    display: none;
+  }
+}

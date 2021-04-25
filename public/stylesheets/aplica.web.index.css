@@ -10,13 +10,17 @@
 }
 
 .card:hover {
-  color:#ff6700;
+  color:#ee4266;
 }
 
 .card__informacao {
   font-family: sans-serif;
   text-align: center;
   color: #999999;
+}
+
+.row {
+  margin-bottom: 0px !important;
 }
 
 @media only screen and (min-width: 600px) {

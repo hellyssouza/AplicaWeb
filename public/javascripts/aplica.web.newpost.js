@@ -11,6 +11,7 @@ define(function (requite) {
     this.salvar = jquery(".salvar");
     this.editor = jquery(".editor");
     this.imagem = jquery(".imagem");
+    this.titulo = jquery(".titulo");
     this.tipo = jquery(".tipo");
   }
 
@@ -97,6 +98,8 @@ define(function (requite) {
           _this.imagem.val("");
           
           _this.pathImg.val("");
+          
+          _this.titulo.val("");
         },
         error: function () {
           M.toast({

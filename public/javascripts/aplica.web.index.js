@@ -1,12 +1,12 @@
 define(function (require) {
   var materialize = require("materialize");
   var jquery = require("jquery");
-  
+
   function Index() {
-    this.container = jquery(".body > .container");
-    this.dropDown = jquery(".dropdown-trigger");
     this.linkArtigos = jquery(".header__link:eq(0)");
     this.linkCursos = jquery(".header__link:eq(1)");
+    this.container = jquery(".body > .container");
+    this.dropDown = jquery(".dropdown-trigger");
   }
 
   Index.prototype = {
@@ -68,43 +68,93 @@ define(function (require) {
     _monteArtigosNaTela: function (artigos) {
       var contadorAuxiliar = 1;
       this.container.empty();
-      var guid = "";
-      var coluna = `<div class="col l4 m6 s12">
-                      <div class="card hoverable">
-                        <div class="card-image">
-                          <img src="{0}">
-                        </div>
-                        <div class="card-content">
-                          <div class="card__descricao">
-                            {1}
-                          </div>
-                          <div class="card__informacao">
-                            {2}
-                          </div>
-                        </div>
-                      </div>
-                    </div>`;
+      var _this = this;
 
-      for (var indice = 0; indice <= artigos.length; indice++) {
-        if (contadorAuxiliar == 1) {
-          var linha = '<div id="{0}" class="row"></div>';
-          this.guid = this._gereGuid();
-          this.container.append(linha.replace("{0}", this.guid));
-        }
-
-        if (contadorAuxiliar <= 3) {
-          var colunaTemp = coluna
-            .replace("{0}", artigos[indice]["Imagem"])
-            .replace("{1}", artigos[indice]["Titulo"])
-            .replace("{2}", artigos[indice]["Publicacao"]);
-
-          jquery("#" + this.guid).append(colunaTemp);
-        } else {
+      for (var indice = 0; indice < artigos.length; indice++) {
+        if (contadorAuxiliar > 3) {
           contadorAuxiliar = 1;
         }
 
-        contadorAuxiliar += 1;
+        if (contadorAuxiliar == 1) {
+          _this.guid = _this._gereGuid();
+
+          var linha = _this._crieLinha(_this.guid);
+
+          _this.container.append(linha);
+        }
+
+        if (contadorAuxiliar <= 3) {
+          var coluna = _this._crieColunaComCard(artigos[indice]);
+
+          var seletorLinha = "#" + _this.guid;
+
+          jquery(seletorLinha).append(coluna);
+
+          contadorAuxiliar += 1;
+        }
       }
+    },
+
+    _crieLinha: function (idDaLinha) {
+      var linha = document.createElement("div");
+
+      linha.classList.value = "row";
+
+      linha.id = idDaLinha;
+
+      return linha;
+    },
+
+    _crieColunaComCard: function (postagem) {
+      var coluna = document.createElement("div");
+      coluna.classList.value = "col l4 m6 s12";
+      var _this = this;
+      
+      var card = document.createElement("div");
+      card.classList.value = "card hoverable";
+      card.id = postagem["id"];
+      
+      card.onclick = function(){
+        var elemento = jquery(this).get(0);
+        jquery.ajax({
+          url: _this._obtenhaURL("postagem/" + elemento.id),
+          method: "GET",
+          dataType: 'html',
+          crossDomain: true,
+          success: function (html) {
+            document.documentElement.innerHTML = html;
+          },
+          error: function () {
+            console.error("Ocorreu um falha na busca dos artigos.");
+          },
+        });
+      };
+
+      var cardImagem = document.createElement("div");
+      cardImagem.classList.value = "card-image";
+
+      var imagem = document.createElement("img");
+      imagem.src = postagem["imagem"];
+
+      var conteudo = document.createElement("div");
+      conteudo.classList.value = "card-content";
+
+      var descricao = document.createElement("div");
+      descricao.classList.value = "card__descricao";
+      descricao.innerText = postagem["titulo"];
+
+      var informacao = document.createElement("div");
+      informacao.classList.value = "card__informacao";
+      informacao.innerText = postagem["data"];
+
+      cardImagem.appendChild(imagem);
+      conteudo.appendChild(descricao);
+      conteudo.appendChild(informacao);
+      card.appendChild(cardImagem);
+      card.appendChild(conteudo);
+      coluna.appendChild(card);
+
+      return coluna;
     },
   };
 

@@ -1,13 +1,11 @@
-const newpost = require("./routes/rota.newpost");
-const artigos = require("./routes/rota.artigos");
-const index = require("./routes/rota.index");
+const newpost = require("./routes/newpost.routers");
+const artigos = require("./routes/postagens.routers");
+const index = require("./routes/index.routers");
 const express = require("express");
 const cors = require("cors");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use("/static", express.static(__dirname + "/public"));

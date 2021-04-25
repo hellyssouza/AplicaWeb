@@ -1,8 +1,11 @@
 let mongoose = require("mongoose");
 
+mongoose.Promise = global.Promise;
+
 function MongoDb(mongoDriver) {
   this.mogoose = mongoDriver;
   this.schema = undefined;
+  this.initialize();
 }
 
 MongoDb.prototype = {
@@ -25,13 +28,16 @@ MongoDb.prototype = {
       data: String,
       tipo: Number,
     });
+
+    mongoose.model("postagens", this.schema);
   },
 
   salve: function (postagem) {
-    let modelo = mongoose.model("Postagem", this.schema);
-    let novoDado = new modelo(postagem);
+    let modelo = mongoose.model("postagens");
 
-    novoDado
+    let novaPostagem = new modelo(postagem);
+
+    novaPostagem
       .save()
       .then((document) => {
         console.log(document);
@@ -40,6 +46,18 @@ MongoDb.prototype = {
         console.log(error);
       });
   },
+
+  obtenha: async function () {
+    let modelo = mongoose.model("postagens");
+
+    return await modelo.find();
+  },
+
+  obtenhaPorId: function(id){
+    let modelo = mongoose.model("postagens");
+
+    return modelo.findById(id);
+  }
 };
 
 module.exports = new MongoDb(mongoose);

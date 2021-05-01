@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <title>Aplica Web</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" type="text/css" href="/static/stylesheets/shared/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/stylesheets/shared/style.css">
-  <link rel="stylesheet" type="text/css" href="/static/stylesheets/aplica.web.newpost.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('shared/importacoes.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/aplica.web.newpost.css">
 </head>
 <body>
   <%- include('shared/header.ejs') %>
   <div class="body">
     <div class="container">
-      <%- include('shared/confirmacao.ejs') %>
+        <%- include('shared/confirmacao.ejs') %>
         <div class="card">
           <div class="card-content">
-            <span class="card-title body__titulo--unselectable">Nova Postagem</span>
+            <span class="card-title body__titulo--unselectable">Plublicação de Postagem</span>
             <form action="postagem" name="formulario">
               <div class="row">
                 <div class="input-field col l6 m6 s12">
@@ -24,9 +20,9 @@
                 </div>
                 <div class="input-field col l6 m6 s12">
                   <select class="tipo" name="tipo">
-                    <option value="1">Artigo</option>
-                    <option value="2">Tutorial</option>
-                    <option value="3">Curso</option>
+                    <option value="1">ARTIGO</option>
+                    <option value="2">TUTORIAL</option>
+                    <option value="3">CURSO</option>
                   </select>
                   <label for="tipo" class="body__titulo--unselectable">Tipo de postagem</label>
                 </div>
@@ -60,7 +56,7 @@
     </div>
   </div>
   <%- include('shared/footer.ejs') %>
-  <script data-main="/static/javascripts/newpost-main" src="/static/javascripts/shared/require.js"></script>
-  <script src="/static/javascripts/ckeditor/ckeditor.js"></script>
+  <script data-main="/javascripts/newpost.main" src="/javascripts/shared/require.js"></script>
+  <script src="/javascripts/ckeditor/ckeditor.js"></script>
 </body>
 </html>>

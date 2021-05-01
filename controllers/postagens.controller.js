@@ -9,9 +9,25 @@ PostagensController.prototype = {
     var objeto = mongodb
       .obtenhaPorId(idPostagem)
       .then((doc) => {
+        let tipoPostagem = "";
+
+        switch (doc.tipo) {
+          case 1:
+            tipoPostagem = "ARTIGO";
+            break;
+          case 2:
+            tipoPostagem = "TUTORIAL";
+            break;
+          case 3:
+            tipoPostagem = "CURSO";
+            break;
+        }
+
         res.render("postagem", {
+          id: doc.id,
           imagem: doc.imagem,
           titulo: doc.titulo,
+          tipo: tipoPostagem,
           conteudo: doc.conteudo,
         });
       })

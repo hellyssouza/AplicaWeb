@@ -10,13 +10,14 @@
 }
 
 .card:hover {
-  color:#ee4266;
+  color:#ff4411;
 }
 
 .card__informacao {
   font-family: sans-serif;
   text-align: center;
   color: #999999;
+  white-space: normal;
 }
 
 .row {
@@ -29,7 +30,7 @@
   }
 
   .card {
-    height: 260px !important;
+    height: 265px !important;
     width: 402px !important;
   }
   

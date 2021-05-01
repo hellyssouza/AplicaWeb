@@ -1,30 +1,25 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <title>Aplica Web</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" type="text/css" href="/static/stylesheets/shared/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/stylesheets/shared/style.css">
-  <link rel="stylesheet" type="text/css" href="/static/stylesheets/aplica.web.postagem.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('shared/importacoes.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/aplica.web.postagem.css">
 </head>
 <body>
   <%- include('shared/header.ejs') %>
-    <div class="body">
-      <div class="container">
-        <div class="row">
-          <div class="col s12">
-            <div class="card">
-              <a class="waves-effect waves-light btn-small left-align voltar" href="/index.html"><i class="material-icons left">arrow_back</i>Voltar</a>
-              <span class="new badge red rigth-align badge-tipo" data-badge-caption="Artigo"></span>
-              <h2 class="center-align titulo-postagem"><%= titulo %></h2>
-              <div class="card-content">
-                <%- conteudo %>
-              </div>
+  <div class="body">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="card postagem" id="<%= id %>">
+            <h2 class="postagem__titulo center-align"><%= titulo %></h2>
+            <div class="card-content">
+              <%- conteudo %>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <%- include('shared/footer.ejs') %>
+  </div>
+  <%- include('shared/footer.ejs') %>
 </body>
 </html>

@@ -12,7 +12,7 @@ NewPostController.prototype = {
     const formulario = new formidable({ multiples: true });
 
     formulario.on("fileBegin", function (name, file) {
-      let complemento = __dirname + "/../public/images/";
+      let complemento = __dirname + "/../public/images/upload/";
 
       file.path = complemento + file.name;
     });
@@ -31,7 +31,7 @@ NewPostController.prototype = {
       mongodb.salve({
         conteudo: fields.texto,
         titulo: fields.titulo,
-        imagem: "/static/images/" + files.imagem.name,
+        imagem: "/images/upload/" + files.imagem.name,
         data: new Date(fields.data).toLocaleDateString(),
         tipo: parseInt(fields.tipo),
       });

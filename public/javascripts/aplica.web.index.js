@@ -7,6 +7,8 @@ define(function (require) {
     this.linkCursos = jquery(".header__link:eq(1)");
     this.container = jquery(".body > .container");
     this.dropDown = jquery(".dropdown-trigger");
+    
+    this.inicialize();
   }
 
   Index.prototype = {
@@ -140,7 +142,7 @@ define(function (require) {
       conteudo.classList.value = "card-content";
 
       var descricao = document.createElement("div");
-      descricao.classList.value = "card__descricao";
+      descricao.classList.value = "card__descricao truncate";
       descricao.innerText = postagem["titulo"];
 
       var informacao = document.createElement("div");

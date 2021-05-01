@@ -13,6 +13,8 @@ define(function (requite) {
     this.imagem = jquery(".imagem");
     this.titulo = jquery(".titulo");
     this.tipo = jquery(".tipo");
+    
+    this.inicialize();
   }
 
   NewPost.prototype = {

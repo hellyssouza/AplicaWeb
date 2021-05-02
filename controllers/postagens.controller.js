@@ -6,34 +6,21 @@ PostagensController.prototype = {
   postagem: function (req, res) {
     let idPostagem = req.params.id;
 
-    var objeto = mongodb
+    mongodb
       .obtenhaPorId(idPostagem)
       .then((doc) => {
-        let tipoPostagem = "";
-
-        switch (doc.tipo) {
-          case 1:
-            tipoPostagem = "ARTIGO";
-            break;
-          case 2:
-            tipoPostagem = "TUTORIAL";
-            break;
-          case 3:
-            tipoPostagem = "CURSO";
-            break;
-        }
-
         res.render("postagem", {
           id: doc.id,
           imagem: doc.imagem,
           titulo: doc.titulo,
-          tipo: tipoPostagem,
           conteudo: doc.conteudo,
         });
+        
+        res.status(200);
+        res.end();
       })
       .catch((error) => {
         console.log(error);
-
         res.status(500);
         res.end();
       });
@@ -54,11 +41,11 @@ PostagensController.prototype = {
         });
 
         res.json(documentos);
+        res.status(200);
         res.end();
       })
       .catch((error) => {
         console.log(error);
-
         res.status(500);
         res.end();
       });

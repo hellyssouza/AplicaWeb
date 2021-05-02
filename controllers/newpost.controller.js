@@ -1,3 +1,4 @@
+const validador = require("../validations/validador.postagem");
 const mongodb = require("../database/postagens");
 const formidable = require("formidable");
 
@@ -20,26 +21,30 @@ NewPostController.prototype = {
     formulario.parse(req, (erro, fields, files) => {
       if (erro) {
         next(erro);
-
         res.status(500);
-
         res.end();
-
         return;
       }
 
-      mongodb.salve({
-        conteudo: fields.texto,
-        titulo: fields.titulo,
-        imagem: "/images/upload/" + files.imagem.name,
-        data: new Date(fields.data).toLocaleDateString(),
-        tipo: parseInt(fields.tipo),
-      });
+      var errors = validador.valide(fields, files);
 
-      res.status(200);
-      res.end();
+      if (errors.length == 0) {
+        mongodb.salve({
+          conteudo: fields.texto,
+          titulo: fields.titulo,
+          imagem: "/images/upload/" + files.imagem.name,
+          data: new Date(fields.data).toLocaleDateString(),
+          tipo: parseInt(fields.tipo),
+        });
+
+        res.json({ sucesso: true, errors: [] });
+        res.end();
+      } else {
+        res.json({ sucesso: false, errors: errors });
+        res.end();
+      }
     });
-  }
+  },
 };
 
 module.exports = new NewPostController();

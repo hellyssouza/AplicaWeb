@@ -1,8 +1,3 @@
-.postagem__voltar {
-  margin-left: 7px;
-  margin-top: 7px;
-}
-
 .postagem__titulo {
   color: #ff4411; 
   font-family: 'Signika', sans-serif; 
@@ -22,6 +17,10 @@
 }
 
 @media only screen and (min-width: 600px) {
+  .postagem {
+    min-height: 480px;
+  }
+
   .container {
     width: 100% !important;
   }

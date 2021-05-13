@@ -50,6 +50,31 @@ PostagensController.prototype = {
         res.end();
       });
   },
+
+  postagens: function(req, res) {
+    mongodb
+      .obtenhaPorTipo(req.params.tipo)
+      .then((postagens) => {
+        var documentos = postagens.map((doc) => {
+          return {
+            id: doc.id,
+            titulo: doc.titulo,
+            imagem: doc.imagem,
+            tipo: doc.tipo,
+            data: doc.data,
+          };
+        });
+
+        res.json(documentos);
+        res.status(200);
+        res.end();
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500);
+        res.end();
+      });
+  }
 };
 
 module.exports = new PostagensController();

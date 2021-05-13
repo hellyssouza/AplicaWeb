@@ -2,13 +2,13 @@ let mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 
-function MongoDb(mongoDriver) {
+function AplicaWebMongoDb(mongoDriver) {
   this.mogoose = mongoDriver;
   this.schema = undefined;
   this.initialize();
 }
 
-MongoDb.prototype = {
+AplicaWebMongoDb.prototype = {
   initialize: function () {
     this.conecte();
   },
@@ -57,7 +57,13 @@ MongoDb.prototype = {
     let modelo = mongoose.model("postagens");
 
     return modelo.findById(id);
+  },
+
+  obtenhaPorTipo: function(tipoDaPostagem){
+    let modelo = mongoose.model("postagens");
+    
+    return modelo.find({tipo: tipoDaPostagem});
   }
 };
 
-module.exports = new MongoDb(mongoose);
+module.exports = new AplicaWebMongoDb(mongoose);

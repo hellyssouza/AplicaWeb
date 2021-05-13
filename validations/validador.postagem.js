@@ -26,6 +26,10 @@ Validador.prototype = {
       this.erros.push("Conteúdo da postagem não foi informado.");
     }
 
+    if(arguments[1].imagem.size == 0) {
+      this.erros.push("A imagem da logo não foi informada.");
+    }
+
     return this.erros;
   },
 };

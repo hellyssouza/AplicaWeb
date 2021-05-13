@@ -1,5 +1,5 @@
 .postagem__titulo {
-  color: #ff4411; 
+  color: #006d77; 
   font-family: 'Signika', sans-serif; 
   padding-bottom: 10px;
   margin-bottom: 0px;
@@ -26,12 +26,16 @@
   }
   
   .postagem__titulo {
-    font-size: 48px; 
+    font-size: 45px; 
   }
 }
 
 @media only screen and (max-width: 600px) {
   .postagem__titulo {
     font-size: 38px; 
+  }
+
+  .postagem {
+    min-height: 600px;
   }
 }

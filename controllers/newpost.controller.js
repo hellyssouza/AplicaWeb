@@ -9,13 +9,15 @@ NewPostController.prototype = {
     res.render("newpost", {});
   },
 
-  postagem: function (req, res) {
+  novo: function (req, res) {
     const formulario = new formidable({ multiples: true });
 
     formulario.on("fileBegin", function (name, file) {
-      let complemento = __dirname + "/../public/images/upload/";
+      if (file.size > 0 && file.name !== "") {
+        let complemento = __dirname + "/../public/images/upload/";
 
-      file.path = complemento + file.name;
+        file.path = complemento + file.name;
+      }
     });
 
     formulario.parse(req, (erro, fields, files) => {

@@ -3,6 +3,7 @@ require.config({
   paths: {
     materialize: "shared/materialize.min",
     principal: "aplica.web.newpost",
+    menu: "shared/aplica.web.menu",
     jquery: "shared/jquery"
   }
 });

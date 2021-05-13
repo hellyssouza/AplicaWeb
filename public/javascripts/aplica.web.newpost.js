@@ -1,8 +1,10 @@
-define(function (requite) {
-  var materialize = require("materialize");
-  var jquery = require("jquery");
-
-  function NewPost() {
+define(["require", "menu", "materialize", "jquery"], function (
+  require,
+  menu,
+  materialize,
+  jquery
+) {
+  function AplicaWebNewPost() {
     this.dropDown = jquery(".dropdown-trigger");
     this.confirmacao = jquery(".confirmacao");
     this.pathImg = jquery(".file-path");
@@ -17,7 +19,7 @@ define(function (requite) {
     this.inicialize();
   }
 
-  NewPost.prototype = {
+  AplicaWebNewPost.prototype = {
     inicialize: function () {
       this.preparaComponente();
     },
@@ -82,7 +84,7 @@ define(function (requite) {
 
       dados.set("data", new Date());
 
-      var url = this._obtenhaURL("postagem");
+      var url = this._obtenhaURL("novo");
 
       var _this = this;
 
@@ -94,8 +96,8 @@ define(function (requite) {
         processData: false,
         contentType: false,
         crossDomain: true,
-        success: _this._callbackSucesso,
-        error: _this._callbackErro,
+        success: (resp) => _this._callbackSucesso(resp),
+        error: (resp) => _this._callbackErro(resp),
       });
     },
 
@@ -109,11 +111,11 @@ define(function (requite) {
 
         CKEDITOR.instances.editor.setData("");
 
-        _this.imagem.val("");
+        this.imagem.val("");
 
-        _this.pathImg.val("");
+        this.pathImg.val("");
 
-        _this.titulo.val("");
+        this.titulo.val("");
       } else {
         var texto = resposta.errors.reduce((acumulador, elemento) => {
           return "<li>" + elemento + "</li>" + acumulador;
@@ -138,11 +140,11 @@ define(function (requite) {
 
     _apresenteMsgDeSucesso: function (mensagem) {
       M.toast({
-        html: msg,
+        html: mensagem,
         classes: "rounded green",
       });
     },
   };
 
-  return new NewPost();
+  return new AplicaWebNewPost();
 });

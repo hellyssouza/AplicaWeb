@@ -42,11 +42,11 @@
   }
 
   .modal {
-    width: 30% !important;
+    width: 280px !important;
   }
   
   .modal.modal-fixed-footer {
-    height: 25% !important;
+    height: 130px !important;
   } 
 }
 
@@ -56,6 +56,6 @@
   }  
   
   .modal.modal-fixed-footer {
-    height: 20% !important;
+    height: 140px !important;
   }
 }

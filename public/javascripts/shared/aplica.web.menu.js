@@ -1,10 +1,19 @@
-define(["require", "jquery", "materialize"], function (require, jquery, materialize) {
+define(["require", "jquery", "materialize"], function (
+  require,
+  jquery,
+  materialize
+) {
   function AplicaWebMenu() {
+    this.linkArtigosMobile = jquery(".dropdown__link:eq(0)");
+    this.linkTutorialMobile = jquery(".dropdown__link:eq(1)");
+    this.linkCursosMobile = jquery(".dropdown__link:eq(2)");
     this.container = jquery(".body > .container");
     this.linkArtigos = jquery(".header__link:eq(0)");
     this.linkTutorial = jquery(".header__link:eq(1)");
     this.linkCursos = jquery(".header__link:eq(2)");
     this.dropDown = jquery(".dropdown-trigger");
+    this.callbackLinks = function () {};
+
     this.inicialize();
   }
 
@@ -17,20 +26,38 @@ define(["require", "jquery", "materialize"], function (require, jquery, material
       this.dropDown.dropdown({ coverTrigger: false });
       var _this = this;
 
+      this.linkArtigosMobile.click(function (event) {
+        event.preventDefault();
+
+        _this.obtenhaPostagem(1, _this.callbackLinks);
+      });
+
+      this.linkTutorialMobile.click(function (event) {
+        event.preventDefault();
+
+        _this.obtenhaPostagem(2, _this.callbackLinks);
+      });
+
+      this.linkCursosMobile.click(function (event) {
+        event.preventDefault();
+
+        _this.obtenhaPostagem(3, _this.callbackLinks);
+      });
+
       this.linkArtigos.click(function () {
-        _this._obtenhaPostagem(1);
+        _this.obtenhaPostagem(1, _this.callbackLinks);
       });
 
       this.linkTutorial.click(function () {
-        _this._obtenhaPostagem(2);
+        _this.obtenhaPostagem(2, _this.callbackLinks);
       });
 
       this.linkCursos.click(function () {
-        _this._obtenhaPostagem(3);
+        _this.obtenhaPostagem(3, _this.callbackLinks);
       });
     },
 
-    _obtenhaPostagem: function (tipoPostagem) {
+    obtenhaPostagem: function (tipoPostagem, callback) {
       var url = this._obtenhaURL("postagens/" + tipoPostagem);
       var _this = this;
 
@@ -38,7 +65,11 @@ define(["require", "jquery", "materialize"], function (require, jquery, material
         url,
         "json",
         function (data) {
-          _this._montePostagensNaTela(data);
+          _this._montePostagensNaTela(true, data);
+
+          _this.container.data("tipo-de-postagem", tipoPostagem);
+
+          callback();
         },
         function () {
           console.error("Ocorreu um falha na busca dos artigos.");
@@ -46,20 +77,49 @@ define(["require", "jquery", "materialize"], function (require, jquery, material
       );
     },
 
+    obtenhaProximasPaginas: function (tipoPostagem, pagina) {
+      var url = this._obtenhaURL("paginacao/" + tipoPostagem + "/" + pagina);
+      var _this = this;
+
+      _this._AjaxGet(
+        url,
+        "json",
+        function (data) {
+          _this._montePostagensNaTela(false, data);
+
+          _this.container.data("tipo-de-postagem", tipoPostagem);
+        },
+        function () {
+          console.error("Ocorreu um falha na busca dos artigos.");
+        }
+      );
+    },
+
+    obtenhaTipoDePostagemNoContexto: function () {
+      return parseInt(this.container.data("tipo-de-postagem"), 10);
+    },
+
+    definaCallBackClickLinks: function (callback) {
+      this.callbackLinks = callback;
+    },
+
     _obtenhaURL: function (complemento) {
       return window.location.origin + "/" + complemento;
     },
 
-    _montePostagensNaTela: function (artigos) {
+    _montePostagensNaTela: function (naoEFluxoDePaginacao, artigos) {
       var contadorAuxiliar = 1;
-      this.container.empty();
-      this._configureCssIndex();
 
-      if (artigos.length === 0) {
-        this.container.append(
-          "<div class='flow-text center'>Nenhum conteúdo encontrado para essa categoria.<div>"
-        );
-        return;
+      if (naoEFluxoDePaginacao) {
+        this._configureCssIndex();
+        this.container.empty();
+
+        if (artigos.length === 0) {
+          this.container.append(
+            "<div class='flow-text center'>Nenhum conteúdo encontrado para essa categoria.<div>"
+          );
+          return;
+        }
       }
 
       for (var indice = 0; indice < artigos.length; indice++) {
@@ -132,8 +192,9 @@ define(["require", "jquery", "materialize"], function (require, jquery, material
           "html",
           function (html) {
             _this.container.empty();
-            _this._configureCssPostagem();
             _this.container.html(html);
+            _this._configureCssPostagem();
+            _this.callbackLinks();
           },
           function () {
             console.error("Ocorreu um falha na busca dos artigos.");

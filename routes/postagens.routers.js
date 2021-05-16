@@ -8,4 +8,6 @@ router.get("/postagem/:id", controller.postagem);
 
 router.get("/postagens/:tipo", controller.postagens);
 
+router.get("/paginacao/:tipo/:pagina", controller.postagensPagina);
+
 module.exports = router;

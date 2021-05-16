@@ -13,7 +13,7 @@ NewPostController.prototype = {
     const formulario = new formidable({ multiples: true });
 
     formulario.on("fileBegin", function (name, file) {
-      if (file.size > 0 && file.name !== "") {
+      if (file.size > 0 || file.name !== "") {
         let complemento = __dirname + "/../public/images/upload/";
 
         file.path = complemento + file.name;

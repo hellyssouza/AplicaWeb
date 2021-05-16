@@ -53,17 +53,23 @@ AplicaWebMongoDb.prototype = {
     return await modelo.find();
   },
 
-  obtenhaPorId: function(id){
+  obtenhaPorId: function (id) {
     let modelo = mongoose.model("postagens");
 
     return modelo.findById(id);
   },
 
-  obtenhaPorTipo: function(tipoDaPostagem){
+  obtenhaPorTipo: function (tipoDaPostagem) {
     let modelo = mongoose.model("postagens");
-    
-    return modelo.find({tipo: tipoDaPostagem});
-  }
+
+    return modelo.find({ tipo: tipoDaPostagem }).limit(6);
+  },
+
+  obtenhaPorPaginacao: function (tipoDaPostagem, pagina) {
+    let modelo = mongoose.model("postagens");
+
+    return modelo.find({ tipo: tipoDaPostagem }).skip(pagina).limit(3);
+  },
 };
 
 module.exports = new AplicaWebMongoDb(mongoose);

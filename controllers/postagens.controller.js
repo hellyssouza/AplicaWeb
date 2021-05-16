@@ -74,6 +74,34 @@ PostagensController.prototype = {
         res.status(500);
         res.end();
       });
+  },
+
+  postagensPagina: function(req, res){
+    let tipoDePostagem = parseInt(req.params.tipo, 10);
+    let pagina = parseInt(req.params.pagina, 10);
+
+    mongodb
+      .obtenhaPorPaginacao(tipoDePostagem, pagina)
+      .then((postagens) => {
+        var documentos = postagens.map((doc) => {
+          return {
+            id: doc.id,
+            titulo: doc.titulo,
+            imagem: doc.imagem,
+            tipo: doc.tipo,
+            data: doc.data,
+          };
+        });
+
+        res.json(documentos);
+        res.status(200);
+        res.end();
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500);
+        res.end();
+      });
   }
 };
 

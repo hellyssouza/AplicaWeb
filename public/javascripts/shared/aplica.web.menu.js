@@ -58,7 +58,9 @@ define(["require", "jquery", "materialize"], function (
     },
 
     obtenhaPostagem: function (tipoPostagem, callback) {
-      var url = this._obtenhaURL("postagens/" + tipoPostagem);
+      var url = this._obtenhaURL(
+        "postagens/" + tipoPostagem + "/" + this.obtenhaLimiteDeBusca()
+      );
       var _this = this;
 
       _this._AjaxGet(
@@ -103,6 +105,14 @@ define(["require", "jquery", "materialize"], function (
       this.callbackLinks = callback;
     },
 
+    obtenhaLimiteDeBusca: function () {
+      if ("ontouchstart" in window && window.screen.availWidth < 768) {
+        return 3;
+      }
+
+      return 6;
+    },
+
     _obtenhaURL: function (complemento) {
       return window.location.origin + "/" + complemento;
     },
@@ -116,7 +126,7 @@ define(["require", "jquery", "materialize"], function (
 
         if (artigos.length === 0) {
           this.container.append(
-            "<div class='flow-text center'>Nenhum conteúdo encontrado para essa categoria.<div>"
+            "<div class='flow-text center'>Nenhum conteúdo postado.<div>"
           );
           return;
         }

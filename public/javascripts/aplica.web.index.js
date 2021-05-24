@@ -21,7 +21,7 @@ define(["require", "jquery", "materialize", "menu"], function (
       var _this = this;
 
       var callback = function () {
-        if ($(".card").length == 6) {
+        if ($(".card").length == menu.obtenhaLimiteDeBusca()) {
           _this.divBotaoBuscarMais.show();
         } else {
           _this.divBotaoBuscarMais.hide();
@@ -43,7 +43,7 @@ define(["require", "jquery", "materialize", "menu"], function (
 
     _obtenhaURL: function (complemento) {
       return window.location.origin + "/" + complemento;
-    },
+    }
   };
 
   return new AplicaWebIndex();

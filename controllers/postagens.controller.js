@@ -52,8 +52,11 @@ PostagensController.prototype = {
   },
 
   postagens: function(req, res) {
+    var tipoPostagem = parseInt(req.params.tipo, 10);
+    var limite = parseInt(req.params.limite, 10);
+
     mongodb
-      .obtenhaPorTipo(req.params.tipo)
+      .obtenhaPorTipo(tipoPostagem, limite)
       .then((postagens) => {
         var documentos = postagens.map((doc) => {
           return {

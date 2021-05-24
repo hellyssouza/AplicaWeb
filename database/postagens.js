@@ -59,10 +59,10 @@ AplicaWebMongoDb.prototype = {
     return modelo.findById(id);
   },
 
-  obtenhaPorTipo: function (tipoDaPostagem) {
+  obtenhaPorTipo: function (tipoDaPostagem, limite) {
     let modelo = mongoose.model("postagens");
 
-    return modelo.find({ tipo: tipoDaPostagem }).limit(6);
+    return modelo.find({ tipo: tipoDaPostagem }).limit(limite);
   },
 
   obtenhaPorPaginacao: function (tipoDaPostagem, pagina) {
